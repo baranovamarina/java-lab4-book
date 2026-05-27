@@ -24,35 +24,36 @@ public class Main {
 
         while (running) {
             System.out.println("\nОберіть дію:");
-            System.out.println("1. Додати електронну книгу (EBook)");
-            System.out.println("2. Додати паперову книгу (PaperBook)");
-            System.out.println("3. Вивести інформацію про всі об'єкти");
-            System.out.println("4. Завершити роботу");
+            System.out.println("1. Створити новий об'єкт");
+            System.out.println("2. Вивести всі об'єкти");
+            System.out.println("3. Завершити");
             System.out.print("Ваш вибір: ");
 
             String choice = scanner.nextLine().trim();
 
             switch (choice) {
-                case "1":
-                    addBook(scanner, booksList, true);
+                case "1": // Створити новий об'єкт
+                    System.out.println("Оберіть тип: 1-EBook, 2-PaperBook, 3-AudioBook, 4-EducationalBook, 5-Назад");
+                    System.out.print("Ваш вибір типу: ");
+                    String typeChoice = scanner.nextLine().trim();
+
+                    // Викликаємо метод створення лише якщо користувач не натиснув "Назад"
+                    if (!typeChoice.equals("5")) {
+                        createBook(scanner, booksList, typeChoice);
+                    }
                     break;
-                case "2":
-                    addBook(scanner, booksList, false);
-                    break;
-                case "3":
+                case "2": // Вивести всі об'єкти
                     showAllBooks(booksList);
                     break;
-                case "4":
+                case "3": // Завершити
                     running = false;
-                    System.out.println("Роботу програми завершено. До побачення!");
                     break;
                 default:
-                    System.out.println("Помилка: Невідомий пункт меню. Спробуйте ще раз.");
+                    System.out.println("Невірний вибір.");
             }
         }
         scanner.close();
     }
-
     /**
      * Зчитує дані та створює об'єкт відповідного похідного класу
      *
@@ -125,3 +126,4 @@ public class Main {
         }
     }
 }
+

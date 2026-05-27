@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Клас автотестів (JUnit 5) для перевірки механізмів валідації класу Book.
+ * Клас автотестів (JUnit 5) для перевірки механізмів валідації класу Book
  */
 class BookTest {
 
@@ -33,7 +33,7 @@ class BookTest {
     }
 
     /**
-     * Перевіряє роботу конструктора копіювання.
+     * Перевіряє роботу конструктора копіювання
      */
     @Test
     void shouldCorrectlyCopyBook() {

@@ -54,24 +54,15 @@ public class Main {
         }
         scanner.close();
     }
-    /**
-     * Зчитує дані та створює об'єкт відповідного похідного класу
-     *
-     * @param scanner об'єкт Scanner
-     * @param list    колекція для збереження книг
-     * @param isEBook прапорець: true, якщо це EBook, false, якщо PaperBook
-     */
-    private static void addBook(Scanner scanner, ArrayList<Book> list, boolean isEBook) {
+    private static void createBook(Scanner scanner, ArrayList<Book> list, String typeChoice) {
         try {
+            // 1. Спочатку зчитуємо спільні дані для всіх типів
             System.out.print("Введіть назву книги: ");
             String title = scanner.nextLine();
-
             System.out.print("Введіть автора: ");
             String author = scanner.nextLine();
-
             System.out.print("Введіть рік видання: ");
             int year = Integer.parseInt(scanner.nextLine());
-
             System.out.print("Введіть ціну: ");
             double price = Double.parseDouble(scanner.nextLine());
 
@@ -86,26 +77,36 @@ public class Main {
                 default: throw new IllegalArgumentException("Невідомий жанр.");
             }
 
-            if (isEBook) {
-                System.out.print("Введіть розмір файлу в МБ: ");
-                double size = Double.parseDouble(scanner.nextLine());
-                // Створення об'єкта EBook і додавання його під виглядом базового класу
-                Book ebook = new EBook(title, author, year, price, genre, size);
-                list.add(ebook);
-                System.out.println("Успіх: Електронну книгу додано!");
-            } else {
-                System.out.print("Введіть кількість сторінок: ");
-                int pages = Integer.parseInt(scanner.nextLine());
-                // Створення об'єкта PaperBook і додавання його під виглядом базового класу
-                Book paperBook = new PaperBook(title, author, year, price, genre, pages);
-                list.add(paperBook);
-                System.out.println("Успіх: Паперову книгу додано!");
+            // 2. Додаємо об'єкт відповідно до типу
+            switch (typeChoice) {
+                case "1": // EBook
+                    System.out.print("Розмір файлу (МБ): ");
+                    double size = Double.parseDouble(scanner.nextLine());
+                    list.add(new EBook(title, author, year, price, genre, size));
+                    break;
+                case "2": // PaperBook
+                    System.out.print("Кількість сторінок: ");
+                    int pages = Integer.parseInt(scanner.nextLine());
+                    list.add(new PaperBook(title, author, year, price, genre, pages));
+                    break;
+                case "3": // AudioBook
+                    System.out.print("Тривалість (хв): ");
+                    double duration = Double.parseDouble(scanner.nextLine());
+                    list.add(new AudioBook(title, author, year, price, genre, duration));
+                    break;
+                case "4": // EducationalBook
+                    System.out.print("Навчальний предмет: ");
+                    String subject = scanner.nextLine();
+                    list.add(new EducationalBook(title, author, year, price, genre, subject));
+                    break;
+                default:
+                    System.out.println("Помилка: невідомий тип.");
             }
-
+            System.out.println("Успіх: Книгу додано до колекції!");
         } catch (NumberFormatException e) {
-            System.out.println("Помилка введення: очікується числове значення!");
+            System.out.println("Помилка: Очікувалося числове значення.");
         } catch (IllegalArgumentException e) {
-            System.out.println("Помилка валідації: " + e.getMessage());
+            System.out.println("Помилка: " + e.getMessage());
         }
     }
 

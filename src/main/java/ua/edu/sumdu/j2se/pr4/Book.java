@@ -3,15 +3,10 @@ package ua.edu.sumdu.j2se.pr4;
 import java.util.Objects;
 
 /**
- * Клас, що представляє книгу
- * Забезпечує зберігання даних про книгу, внутрішню валідацію полів
- * та підрахунок загальної кількості створених об'єктів
+ * Базовий клас, що представляє книгу
+ * Забезпечує зберігання загальних даних про книгу та внутрішню валідацію полів
  */
 public class Book {
-
-    /** Статичне поле для підрахунку кількості створених об'єктів класу Book */
-    private static int totalBooks = 0;
-
     private String title;
     private String author;
     private int year;
@@ -40,13 +35,10 @@ public class Book {
         this.year = year;
         this.price = price;
         this.genre = genre;
-
-        totalBooks++; // Збільшуємо лічильник при створенні нової книги
     }
 
     /**
      * Конструктор копіювання
-     * Створює новий об'єкт книги як точну копію переданого об'єкта
      *
      * @param other об'єкт книги для копіювання
      * @throws IllegalArgumentException якщо переданий об'єкт є null
@@ -60,17 +52,6 @@ public class Book {
         this.year = other.year;
         this.price = other.price;
         this.genre = other.genre;
-
-        totalBooks++; // Копія також вважається новим створеним об'єктом
-    }
-
-    /**
-     * Статичний метод для отримання загальної кількості створених книг
-     *
-     * @return кількість об'єктів Book
-     */
-    public static int getTotalBooks() {
-        return totalBooks;
     }
 
     public String getTitle() { return title; }
@@ -97,16 +78,7 @@ public class Book {
         this.price = price;
     }
 
-    /**
-     * Отримує жанр книги
-     * @return жанр
-     */
     public Genre getGenre() { return genre; }
-
-    /**
-     * Встановлює новий жанр для книги
-     * @param genre новий жанр
-     */
     public void setGenre(Genre genre) {
         validateGenre(genre);
         this.genre = genre;
